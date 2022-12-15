@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
-import "@openzeppelin/contracts/utils/Context.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
+import { Context } from "@openzeppelin/contracts/utils/Context.sol";
+import { Strings } from "@openzeppelin/contracts/utils/Strings.sol";
 
 import { AccessControlStorage } from "./AccessControlStorage.sol";
 import { IAccessControlEvents } from "./IAccessControlEvents.sol";
@@ -10,7 +10,8 @@ import { IAccessControlEvents } from "./IAccessControlEvents.sol";
 abstract contract AccessControlInternal is Context, IAccessControlEvents {
     using AccessControlStorage for AccessControlStorage.Layout;
 
-    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
+    bytes32 internal constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
+    bytes32 internal constant SIGNER_ROLE = keccak256("SIGNER_ROLE");
 
     /**
      * @dev Modifier that checks that an account has a specific role. Reverts

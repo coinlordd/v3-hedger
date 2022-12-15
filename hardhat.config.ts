@@ -1,11 +1,11 @@
 import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomicfoundation/hardhat-toolbox";
+import "hardhat-deploy";
 import { config as dotenvConfig } from "dotenv";
 import type { HardhatUserConfig } from "hardhat/config";
 import { resolve } from "path";
 
-import "./tasks/deploy";
-import "./tasks/upgrade";
+import "./src/tasks/deploy";
 
 const dotenvConfigPath: string = process.env.DOTENV_CONFIG_PATH || "./.env";
 dotenvConfig({ path: resolve(__dirname, dotenvConfigPath) });
@@ -74,8 +74,19 @@ const config: HardhatUserConfig = {
     },
   },
   typechain: {
-    outDir: "src/types",
+    outDir: "types",
     target: "ethers-v5",
+  },
+  namedAccounts: {
+    deployer: {
+      default: 0,
+    },
+    admin: {
+      default: 1,
+    },
+    signer: {
+      default: 2,
+    },
   },
 };
 

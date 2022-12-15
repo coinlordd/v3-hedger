@@ -6,6 +6,7 @@ library HedgerStorage {
 
     struct Layout {
         address masteragreement;
+        address collateral;
     }
 
     function layout() internal pure returns (Layout storage l) {

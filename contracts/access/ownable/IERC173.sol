@@ -15,6 +15,11 @@ interface IERC173 is IERC173Events {
     function owner() external view returns (address);
 
     /**
+     * @notice renounce ownership of the contract
+     */
+    function renounceOwnership() external;
+
+    /**
      * @notice transfer contract ownership to new account
      * @param account address of new owner
      */

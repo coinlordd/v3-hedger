@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
-import "@openzeppelin/contracts/utils/Context.sol";
+import { Context } from "@openzeppelin/contracts/utils/Context.sol";
 
 import { OwnableStorage } from "./OwnableStorage.sol";
 import { IERC173Events } from "./IERC173Events.sol";

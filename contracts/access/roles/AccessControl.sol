@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
-import "@openzeppelin/contracts/utils/Context.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
+import { Context } from "@openzeppelin/contracts/utils/Context.sol";
 
 import { AccessControlInternal } from "./AccessControlInternal.sol";
 import { IAccessControl } from "./IAccessControl.sol";

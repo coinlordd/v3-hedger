@@ -9,4 +9,8 @@ contract AccessControlAdmin is IAccessControlAdmin, OwnableInternal, AccessContr
     function grantAdminRole(address admin) external override onlyOwner {
         _grantRole(ADMIN_ROLE, admin);
     }
+
+    function grantSignerRole(address signer) external onlyRole(ADMIN_ROLE) {
+        _grantRole(SIGNER_ROLE, signer);
+    }
 }

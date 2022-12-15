@@ -33,13 +33,10 @@ contract Diamond {
     constructor(
         address owner,
         CoreFacets memory _coreFacets,
-        IDiamondCut.FacetCut[] memory _facets,
+        IDiamondCut.FacetCut[] memory _appFacets,
         Initialization[] memory _initializations
     ) {
         ERC165Storage.Layout storage erc165 = ERC165Storage.layout();
-
-        // Set owner
-        OwnableStorage.layout().setOwner(owner);
 
         // Register DiamondCut
         bytes4[] memory selectorsDiamondCut = new bytes4[](1);
@@ -59,9 +56,10 @@ contract Diamond {
         selectorsERC165[0] = IERC165.supportsInterface.selector;
 
         // Register ERC173 (Ownable)
-        bytes4[] memory selectorsERC173 = new bytes4[](2);
+        bytes4[] memory selectorsERC173 = new bytes4[](3);
         selectorsERC173[0] = IERC173.owner.selector;
-        selectorsERC173[1] = IERC173.transferOwnership.selector;
+        selectorsERC173[1] = IERC173.renounceOwnership.selector;
+        selectorsERC173[2] = IERC173.transferOwnership.selector;
         erc165.setSupportedInterface(type(IERC173).interfaceId, true);
 
         // Execute the first ever diamond cut, we're calling the addFunctions directly to save ~ %50 gas
@@ -70,9 +68,12 @@ contract Diamond {
         DiamondStorage.addFunctions(_coreFacets.erc165Facet, selectorsERC165);
         DiamondStorage.addFunctions(_coreFacets.erc173Facet, selectorsERC173);
 
+        // Set owner
+        OwnableStorage.layout().setOwner(owner);
+
         // Initialize initial facet selectors
-        for (uint256 i = 0; i < _facets.length; i++) {
-            DiamondStorage.addFunctions(_facets[i].facetAddress, _facets[i].functionSelectors);
+        for (uint256 i = 0; i < _appFacets.length; i++) {
+            DiamondStorage.addFunctions(_appFacets[i].facetAddress, _appFacets[i].functionSelectors);
         }
 
         // Init additional txns atomically

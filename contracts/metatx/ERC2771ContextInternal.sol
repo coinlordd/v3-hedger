@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
-import "@openzeppelin/contracts/utils/Context.sol";
+import { Context } from "@openzeppelin/contracts/utils/Context.sol";
 import { ERC2771ContextStorage } from "./ERC2771ContextStorage.sol";
 
 abstract contract ERC2771ContextInternal is Context {
