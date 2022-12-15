@@ -35,6 +35,7 @@ declare module "mocha" {
     // Config
     masterAgreement: IMasterAgreement;
     collateral: string;
+    trustedForwarder: string;
   }
 }
 
