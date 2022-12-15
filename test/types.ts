@@ -14,8 +14,6 @@ import type {
   Ownable,
 } from "../src/types";
 
-type Fixture<T> = () => Promise<T>;
-
 declare module "mocha" {
   export interface Context {
     signers: Signers;
