@@ -52,8 +52,8 @@ describe("Unit Test", function () {
       "IMasterAgreement",
       await this.hedgerOwnable.getMasterAgreement(),
     )) as IMasterAgreement;
-
     this.collateral = await this.hedgerOwnable.getCollateral();
+    this.trustedForwarder = await this.erc2771Context.trustedForwarder();
   });
 
   before(async function () {
