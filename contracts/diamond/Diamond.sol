@@ -71,7 +71,7 @@ contract Diamond {
         // Set owner
         OwnableStorage.layout().setOwner(owner);
 
-        // Initialize initial facet selectors
+        // Initialize facet selectors
         for (uint256 i = 0; i < _appFacets.length; i++) {
             DiamondStorage.addFunctions(_appFacets[i].facetAddress, _appFacets[i].functionSelectors);
         }

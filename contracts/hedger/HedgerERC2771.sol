@@ -2,10 +2,10 @@
 pragma solidity ^0.8.16;
 
 import { AccessControlERC2771 } from "../access/roles/AccessControlERC2771.sol";
-import { HedgerBase } from "./HedgerBase.sol";
+import { HedgerInternal } from "./HedgerInternal.sol";
 
-contract HedgerERC2771 is HedgerBase, AccessControlERC2771 {
+contract HedgerERC2771 is AccessControlERC2771 {
     function callMasterAgreementSigner(bytes calldata data) external payable onlyRole(SIGNER_ROLE) {
-        _callMasterAgreement(data);
+        HedgerInternal.callMasterAgreement(data);
     }
 }

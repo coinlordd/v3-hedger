@@ -6,17 +6,28 @@ import { IERC20, SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/Saf
 import { OwnableInternal } from "../access/ownable/OwnableInternal.sol";
 import { HedgerStorage } from "./HedgerStorage.sol";
 import { HedgerInternal } from "./HedgerInternal.sol";
-import { HedgerBase } from "./HedgerBase.sol";
 
-contract HedgerOwnable is OwnableInternal, HedgerBase {
+contract HedgerOwnable is OwnableInternal {
     using SafeERC20 for IERC20;
     using HedgerStorage for HedgerStorage.Layout;
 
     event SetMasterAgreement(address indexed prev, address indexed next);
     event SetCollateral(address indexed prev, address indexed next);
 
+    /* ========== VIEWS ========== */
+
+    function getMasterAgreement() public view returns (address) {
+        return HedgerInternal.getMasterAgreement();
+    }
+
+    function getCollateral() public view returns (address) {
+        return HedgerInternal.getCollateral();
+    }
+
+    /* ========== WRITES ========== */
+
     function callMasterAgreementOwner(bytes calldata data) external payable onlyOwner {
-        _callMasterAgreement(data);
+        HedgerInternal.callMasterAgreement(data);
     }
 
     function withdrawETH() external onlyOwner {
@@ -25,14 +36,14 @@ contract HedgerOwnable is OwnableInternal, HedgerBase {
         require(success, "Failed to send Ether");
     }
 
-    function setMasterAgreement(address masteragreement) external onlyOwner {
-        emit SetMasterAgreement(HedgerInternal.getMasterAgreement(), masteragreement);
-        HedgerStorage.layout().masteragreement = masteragreement;
+    function setMasterAgreement(address masterAgreement) public onlyOwner {
+        emit SetMasterAgreement(HedgerInternal.getMasterAgreement(), masterAgreement);
+        HedgerStorage.layout().masterAgreement = masterAgreement;
         _approve();
         _enlist();
     }
 
-    function setCollateral(address collateral) external onlyOwner {
+    function setCollateral(address collateral) public onlyOwner {
         emit SetCollateral(HedgerInternal.getCollateral(), collateral);
         HedgerStorage.layout().collateral = collateral;
         _approve();

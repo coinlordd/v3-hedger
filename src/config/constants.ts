@@ -1,6 +1,6 @@
 export const diamondName = "DeusHedger";
 
-export const coreFacetNames = ["DiamondCut", "DiamondLoupe", "ERC165", "Ownable"];
+export const coreFacetNames = ["DiamondCut", "DiamondLoupe", "ERC165", "Ownable"] as const;
 export const appFacetNames = [
   "AccessControl",
   "AccessControlAdmin",
