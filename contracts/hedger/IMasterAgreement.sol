@@ -16,5 +16,5 @@ interface IMasterAgreement {
     function deallocateAndWithdraw(uint256 amount) external;
 
     /* ========== HEDGERS ========== */
-    function enlist() external;
+    function enlist(string[] calldata pricingWssURLs, string[] calldata marketsHttpsURLs) external;
 }

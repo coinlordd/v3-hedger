@@ -20,14 +20,9 @@ contract DiamondInit {
     function init() external {
         address masterAgreement = 0x212e1A33350a85c4bdB2607C47E041a65bD14361;
         address collateral = 0xB62F2fb600D39A44883688DE20A8E058c76Ad558;
+        HedgerInternal.addMasterAgreement(masterAgreement, collateral);
+
         address trustedForwarder = 0x4461377e03cD75bc5B9b3D5514318b10b05B76d1;
-
-        HedgerStorage.layout().masterAgreement = masterAgreement;
-        HedgerStorage.layout().collateral = collateral;
         ERC2771ContextStorage.layout().trustedForwarder = trustedForwarder;
-
-        // Set & Approve MasterAgreement
-        IERC20(collateral).safeApprove(masterAgreement, type(uint256).max);
-        // HedgerInternal.getMasterAgreementContract().enlist();
     }
 }

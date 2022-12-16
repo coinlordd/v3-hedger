@@ -13,6 +13,7 @@ import {
   IMasterAgreement,
   Ownable,
 } from "../src/types";
+import { MASTER_AGREEMENT } from "./constants";
 import { shouldBehaveLikeDiamond } from "./Diamond/Diamond.behavior";
 import { deployDiamondFixture } from "./Diamond/Diamond.fixture";
 import { shouldBehaveLikeHedgerERC2771 } from "./HedgerERC2771/HedgerERC2771.behavior";
@@ -48,11 +49,8 @@ describe("Unit Test", function () {
     )) as ERC2771ContextOwnable;
 
     // Config
-    this.masterAgreement = (await ethers.getContractAt(
-      "IMasterAgreement",
-      await this.hedgerOwnable.getMasterAgreement(),
-    )) as IMasterAgreement;
-    this.collateral = await this.hedgerOwnable.getCollateral();
+    this.masterAgreement = (await ethers.getContractAt("IMasterAgreement", MASTER_AGREEMENT)) as IMasterAgreement;
+    this.collateral = await this.hedgerOwnable.getCollateral(MASTER_AGREEMENT);
     this.trustedForwarder = await this.erc2771Context.trustedForwarder();
   });
 
