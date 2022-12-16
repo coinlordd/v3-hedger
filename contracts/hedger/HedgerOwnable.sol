@@ -57,7 +57,7 @@ contract HedgerOwnable is OwnableInternal {
         HedgerInternal.getMasterAgreementContract(masterAgreement).depositAndAllocate(amount);
     }
 
-    function deallocateAndWithdraw(address masterAgreement, uint256 amount) public onlyOwner {
+    function deallocateAndWithdraw(address masterAgreement, uint256 amount) external onlyOwner {
         HedgerInternal.getMasterAgreementContract(masterAgreement).deallocateAndWithdraw(amount);
     }
 }

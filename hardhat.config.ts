@@ -1,9 +1,12 @@
 import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomicfoundation/hardhat-toolbox";
 import "hardhat-deploy";
+import "hardhat-diamond-abi";
+import "@typechain/hardhat";
 import { config as dotenvConfig } from "dotenv";
 import type { HardhatUserConfig } from "hardhat/config";
 import { resolve } from "path";
+import { diamondName } from "./src/config/constants";
 
 const dotenvConfigPath: string = process.env.DOTENV_CONFIG_PATH || "./.env";
 dotenvConfig({ path: resolve(__dirname, dotenvConfigPath) });
@@ -48,6 +51,11 @@ const config: HardhatUserConfig = {
       arbitrumOne: arbiscanAPIKey,
     },
   },
+  verify: {
+    etherscan: {
+      apiKey: arbiscanAPIKey,
+    },
+  },
   paths: {
     artifacts: "./artifacts",
     cache: "./cache",
@@ -84,6 +92,13 @@ const config: HardhatUserConfig = {
     },
     signer: {
       default: 2,
+    },
+  },
+  diamondAbi: {
+    name: diamondName,
+    strict: false,
+    filter: function (abiElement, index, fullAbi, fullyQualifiedName) {
+      return !fullyQualifiedName.includes("IMasterAgreement");
     },
   },
 };

@@ -16,16 +16,13 @@ const deploy = async function ({ deployments, getNamedAccounts, ethers }: Hardha
     throw new Error("CoreFacets are not properly defined");
   }
 
-  const coreFacets: string[] = await Promise.all(
-    coreFacetNames.map(async name => {
-      const factory = await ethers.getContractFactory(name);
-      const facet = await factory.deploy();
-      await facet.deployed();
-      await facet.deployTransaction.wait();
-      console.log(`Core:${name} deployed: ${facet.address}`);
-      return facet.address;
-    }),
-  );
+  const coreFacets: string[] = [];
+  for (let i = 0; i < coreFacetNames.length; i++) {
+    const name = coreFacetNames[i];
+    const facet = await deploy(name, { from: deployer });
+    console.log(`Core:${name} deployed: ${facet.address}`);
+    coreFacets.push(facet.address);
+  }
 
   // Deploy DiamondInit
   const DiamondInitFactory = await ethers.getContractFactory("DiamondInit");
@@ -39,19 +36,19 @@ const deploy = async function ({ deployments, getNamedAccounts, ethers }: Hardha
     facetAddress: string;
     action: FacetCutAction;
     functionSelectors: string[];
-  }> = await Promise.all(
-    appFacetNames.map(async name => {
-      const factory = await ethers.getContractFactory(name);
-      const facet = await factory.deploy();
-      await facet.deployed();
-      console.log(`App:${name} deployed: ${facet.address}`);
-      return {
-        facetAddress: facet.address,
-        action: FacetCutAction.Add,
-        functionSelectors: getSelectors(facet).selectors,
-      };
-    }),
-  );
+  }> = [];
+
+  for (let i = 0; i < coreFacetNames.length; i++) {
+    const name = appFacetNames[i];
+    const factory = await ethers.getContractFactory(name);
+    const facet = await deploy(name, { from: deployer });
+    console.log(`App:${name} deployed: ${facet.address}`);
+    appFacets.push({
+      facetAddress: facet.address,
+      action: FacetCutAction.Add,
+      functionSelectors: getSelectors(factory).selectors,
+    });
+  }
 
   // Deploy Diamond
   const diamond = await deploy("Diamond", {
