@@ -8,12 +8,10 @@ pragma solidity ^0.8.16;
 
 import { IERC20, SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-import { HedgerStorage } from "../hedger/HedgerStorage.sol";
-import { HedgerInternal } from "../hedger//HedgerInternal.sol";
+import { HedgerInternal } from "../hedger/HedgerInternal.sol";
 import { ERC2771ContextStorage } from "../metatx/ERC2771ContextStorage.sol";
 
 contract DiamondInit {
-    using HedgerStorage for HedgerStorage.Layout;
     using ERC2771ContextStorage for ERC2771ContextStorage.Layout;
     using SafeERC20 for IERC20;
 

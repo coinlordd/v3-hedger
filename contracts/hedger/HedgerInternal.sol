@@ -72,11 +72,6 @@ library HedgerInternal {
     }
 
     function _enlist(address masterAgreement) private {
-        string[] memory url1 = new string[](1);
-        string[] memory url2 = new string[](1);
-        url1[0] = "wss://hedger.com";
-        url2[0] = "https://hedger.com";
-
-        getMasterAgreementContract(masterAgreement).enlist(url1, url2);
+        getMasterAgreementContract(masterAgreement).enlist();
     }
 }

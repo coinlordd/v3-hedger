@@ -83,17 +83,6 @@ const config: HardhatUserConfig = {
     outDir: "src/types",
     target: "ethers-v5",
   },
-  namedAccounts: {
-    deployer: {
-      default: 0,
-    },
-    admin: {
-      default: 1,
-    },
-    signer: {
-      default: 2,
-    },
-  },
   diamondAbi: {
     name: diamondName,
     strict: false,

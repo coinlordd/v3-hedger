@@ -5,16 +5,6 @@ import { OwnableInternal } from "../access/ownable/OwnableInternal.sol";
 import { HedgerInternal } from "./HedgerInternal.sol";
 
 contract HedgerOwnable is OwnableInternal {
-    /* ========== VIEWS ========== */
-
-    function isMasterAgreement(address masterAgreement) public view returns (bool) {
-        return HedgerInternal.isMasterAgreement(masterAgreement);
-    }
-
-    function getCollateral(address masterAgreement) public view returns (address) {
-        return HedgerInternal.getCollateral(masterAgreement);
-    }
-
     /* ========== SETTERS ========== */
 
     function addMasterAgreement(address masterAgreement, address collateral) public onlyOwner {
