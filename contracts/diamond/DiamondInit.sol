@@ -16,7 +16,7 @@ contract DiamondInit {
     using SafeERC20 for IERC20;
 
     function init() external {
-        address masterAgreement = 0x212e1A33350a85c4bdB2607C47E041a65bD14361;
+        address masterAgreement = 0x32cD458d037C5E74eBE0D9d75038eAD2279Da2bf;
         address collateral = 0xB62F2fb600D39A44883688DE20A8E058c76Ad558;
         HedgerInternal.addMasterAgreement(masterAgreement, collateral);
 
