@@ -15,6 +15,12 @@ interface IMasterAgreement {
 
     function deallocateAndWithdraw(uint256 amount) external;
 
+    function addFreeMarginIsolated(uint256 amount, uint256 positionId) external;
+
+    function addFreeMarginCross(uint256 amount) external;
+
+    function removeFreeMarginCross() external;
+
     /* ========== ACCOUNTS - VIEWS ========== */
 
     function getAccountBalance(address party) external view returns (uint256);
@@ -29,7 +35,13 @@ interface IMasterAgreement {
 
     /* ========== TRADES ========== */
 
-    function openPosition(uint256 rfqId, uint256 filledAmountUnits, uint256 avgPriceUsd, bytes16 uuid) external;
+    function openPosition(
+        uint256 rfqId,
+        uint256 filledAmountUnits,
+        uint256 avgPriceUsd,
+        bytes16 uuid,
+        uint256 lockedMarginB
+    ) external;
 
     function closePosition(uint256 positionId, uint256 avgPriceUsd) external;
 
