@@ -50,4 +50,20 @@ contract HedgerOwnable is OwnableInternal {
     function deallocateAndWithdraw(address masterAgreement, uint256 amount) external onlyOwner {
         HedgerInternal.getMasterAgreementContract(masterAgreement).deallocateAndWithdraw(amount);
     }
+
+    function addFreeMarginIsolatedOwner(
+        address masterAgreement,
+        uint256 amount,
+        uint256 positionId
+    ) external onlyOwner {
+        HedgerInternal.getMasterAgreementContract(masterAgreement).addFreeMarginIsolated(amount, positionId);
+    }
+
+    function addFreeMarginCrossOwner(address masterAgreement, uint256 amount) external onlyOwner {
+        HedgerInternal.getMasterAgreementContract(masterAgreement).addFreeMarginCross(amount);
+    }
+
+    function removeFreeMarginCross(address masterAgreement) external onlyOwner {
+        HedgerInternal.getMasterAgreementContract(masterAgreement).removeFreeMarginCross();
+    }
 }
