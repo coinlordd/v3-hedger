@@ -4,8 +4,8 @@ import { DiamondCut } from "../src/types";
 import { FacetCutAction, getSelectors } from "../src/utils/diamondCut";
 
 const UPGRADE_NAME = "01_upgrade_pull_1";
-const DIAMOND_ADDRESS = "0x5E124E4FBa6C2E7DbA992902882EBb15Dbb37937"; // testnet
-// const DIAMOND_ADDRESS = "0xCCFD0f473738B8BDC87b94cd45622Ddd9b00FE91"; // mainnet
+// const DIAMOND_ADDRESS = "0x5E124E4FBa6C2E7DbA992902882EBb15Dbb37937"; // testnet
+const DIAMOND_ADDRESS = "0xCCFD0f473738B8BDC87b94cd45622Ddd9b00FE91"; // mainnet
 
 const deploy = async function ({ deployments, getNamedAccounts, ethers }: HardhatRuntimeEnvironment) {
   const { deploy } = deployments;
